@@ -1,4 +1,6 @@
 import React from "react";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 // MUI imports
 import { withStyles, Typography } from "@material-ui/core";
@@ -33,6 +35,7 @@ function Scream({
   },
   classes,
 }) {
+  dayjs.extend(relativeTime);
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -50,7 +53,7 @@ function Scream({
           {userHandle}
         </Typography>
         <Typography variant="body2" color="textSecondary">
-          {createdAt}
+          {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1">{body}</Typography>
       </CardContent>
