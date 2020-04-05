@@ -57,6 +57,7 @@ function LoginPage({ classes, history }) {
   const handleSubmit = async (userData) => {
     return await Axios.post("/login", userData)
       .then((res) => {
+        localStorage.setItem("FirebaseIdToken", res.data.token);
         history.push("/");
       })
       .catch((err) => {

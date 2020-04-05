@@ -1,10 +1,15 @@
+// Module imports
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import "./App.css";
 
 // MUI theme provider
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+
+// Local imports
+import "./App.css";
+import globalTheme from "./utils/theme";
+
 // Components
 import Navbar from "./components/Navbar";
 
@@ -12,23 +17,9 @@ import Navbar from "./components/Navbar";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
+import AuthRoute from "./utils/AuthRoute";
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      light: "#33c9dc",
-      main: "#00bcd4",
-      dark: "#008394",
-      contrastText: "#ffffff",
-    },
-    secondary: {
-      light: "#ff6333",
-      main: "#ffcd00",
-      dark: "#b22a00",
-      contrastText: "#ffffff",
-    },
-  },
-});
+const theme = createMuiTheme(globalTheme);
 
 function App() {
   return (
@@ -39,8 +30,8 @@ function App() {
           <div className="container">
             <Switch>
               <Route exact path="/" component={HomePage} />
-              <Route exact path="/login" component={LoginPage} />
-              <Route exact path="/register" component={RegisterPage} />
+              <AuthRoute exact path="/login" component={LoginPage} />
+              <AuthRoute exact path="/register" component={RegisterPage} />
             </Switch>
           </div>
         </Router>

@@ -68,6 +68,7 @@ function RegisterPage({ classes, history }) {
   const handleSubmit = async (userData) => {
     return await Axios.post("/signup", userData)
       .then((res) => {
+        localStorage.setItem("FirebaseIdToken", res.data.token);
         history.push("/");
       })
       .catch((err) => {
