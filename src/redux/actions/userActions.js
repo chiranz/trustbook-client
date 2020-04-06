@@ -83,3 +83,14 @@ export const logoutUser = () => (dispatch) => {
     type: SET_UNAUTHENTICATED,
   });
 };
+
+export const uploadProfileImage = (formData) => async (dispatch) => {
+  dispatch({ type: LOADING_USER });
+  await Axios.post("/user/image", formData)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};

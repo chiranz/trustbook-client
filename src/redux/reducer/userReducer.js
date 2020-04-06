@@ -22,12 +22,16 @@ export default function (state = initialState, action) {
         authenticated: true,
         ...action.payload,
       };
+
     case SET_AUTHENTICATED:
       return { ...state, authenticated: true };
+
     case SET_UNAUTHENTICATED:
       return initialState;
+
     case LOADING_USER:
       return { ...state, loading: true };
+
     default:
       return state;
   }
