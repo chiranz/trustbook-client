@@ -1,4 +1,4 @@
-import { SET_USER, SET_UNAUTHENTICATED } from "../types";
+import { SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from "../types";
 import Axios from "axios";
 
 const setAuthorizationHeader = (token) => {
@@ -61,6 +61,9 @@ export const signupUser = ({
 };
 
 export const getUserData = () => async (dispatch) => {
+  dispatch({
+    type: LOADING_USER,
+  });
   await Axios.get("/user")
     .then((res) => {
       dispatch({

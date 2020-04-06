@@ -3,6 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Scream from "../components/Scream";
 import { useSelector } from "react-redux";
 import ReactLoader from "react-loader";
+import Profile from "../components/Profile";
 
 export default function HomePage() {
   const { screams, loading } = useSelector((state) => state.data);
@@ -21,7 +22,7 @@ export default function HomePage() {
           )}
         </Grid>
         <Grid item sm={4} xs={12}>
-          <p>Profile...</p>
+          <Profile />
         </Grid>
       </Grid>
     </ReactLoader>

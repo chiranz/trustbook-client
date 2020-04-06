@@ -1,5 +1,6 @@
 import { createStore, compose, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
+import { persistStore } from "redux-persist";
 import rootReducer from "./reducer";
 
 const middlewares = [thunk];
@@ -7,9 +8,9 @@ const middlewares = [thunk];
 const devTools =
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-const store = createStore(
+export const store = createStore(
   rootReducer,
   compose(applyMiddleware(...middlewares), devTools)
 );
 
-export default store;
+export const persistor = persistStore(store);

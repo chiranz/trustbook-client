@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import JwtDecode from "jwt-decode";
 import Axios from "axios";
-
+import { PersistGate } from "redux-persist/integration/react";
 // MUI theme provider
 import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
 import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
@@ -23,6 +23,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AuthRoute from "./utils/AuthRoute";
 import { getUserData, logoutUser } from "./redux/actions/userActions";
 import { getScreams } from "./redux/actions/dataActions";
+import { persistor } from "./redux/store";
 
 const theme = createMuiTheme(globalTheme);
 
@@ -44,14 +45,16 @@ function App() {
   return (
     <MuiThemeProvider theme={theme}>
       <Router>
-        <Navbar />
-        <div className="container">
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <AuthRoute exact path="/login" component={LoginPage} />
-            <AuthRoute exact path="/register" component={RegisterPage} />
-          </Switch>
-        </div>
+        <PersistGate persistor={persistor}>
+          <Navbar />
+          <div className="container">
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <AuthRoute exact path="/login" component={LoginPage} />
+              <AuthRoute exact path="/register" component={RegisterPage} />
+            </Switch>
+          </div>
+        </PersistGate>
       </Router>
     </MuiThemeProvider>
   );
