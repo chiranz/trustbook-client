@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 // Module Imports
-import Axios from "axios";
-import * as Yup from "yup";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 
@@ -16,6 +14,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Local imports
 import TrustImg from "../assets/trust.svg";
+import { registerValidationSchema } from "../utils/YupValidationSchema";
+import { useDispatch } from "react-redux";
+import { signupUser } from "../redux/actions/userActions";
 
 const styles = {
   form: {
@@ -40,41 +41,21 @@ const styles = {
   },
 };
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Must be a valid email")
-    .max(255, "Should be less than 255 characters")
-    .required("Email is required!"),
-  handle: Yup.string()
-    .min(2, "Should be at least 2 characters")
-    .max(255, "Should be less than 255 characters")
-    .required("Handle is required!"),
-  password: Yup.string()
-    .min(6, "Should be min 6 characters")
-    .max(255, "Can't be more than 255 chars")
-    .required("Password is required!"),
-  confirmPassword: Yup.string()
-    .min(6, "Should be min 6 characters")
-    .max(255, "Can't be more than 255 chars")
-    .required("Confirm your password!")
-    .test("match-password", "Passwords must be same.", function (value) {
-      return value === this.parent.password;
-    }),
-});
-
 function RegisterPage({ classes, history }) {
-  const [authErrors, setAuthErrors] = useState({});
+  const [globalError, setGlobalError] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSubmit = async (userData) => {
-    return await Axios.post("/signup", userData)
-      .then((res) => {
-        localStorage.setItem("FirebaseIdToken", res.data.token);
-        history.push("/");
+  const handleSubmit = (values, { setSubmitting, setErrors, resetForm }) => {
+    dispatch(
+      signupUser({
+        userData: values,
+        history,
+        setSubmitting,
+        setErrors,
+        resetForm,
+        setGlobalError,
       })
-      .catch((err) => {
-        console.log(err.response.data);
-        setAuthErrors(err.response.data);
-      });
+    );
   };
   return (
     <Grid container className={classes.form}>
@@ -85,7 +66,7 @@ function RegisterPage({ classes, history }) {
           Sign Up
         </Typography>
         <Typography variant="body2" color="error">
-          {authErrors.global}
+          {globalError}
         </Typography>
         <Formik
           initialValues={{
@@ -94,14 +75,8 @@ function RegisterPage({ classes, history }) {
             handle: "",
             confirmPassword: "",
           }}
-          validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
-            handleSubmit(values).then(() => {
-              resetForm();
-              setSubmitting(false);
-            });
-          }}
+          validationSchema={registerValidationSchema}
+          onSubmit={handleSubmit}
         >
           {({
             values,
@@ -122,12 +97,8 @@ function RegisterPage({ classes, history }) {
                 value={values.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={
-                  authErrors.email || (errors.email && touched.email)
-                    ? true
-                    : false
-                }
-                helperText={errors.email || authErrors.email}
+                error={errors.email && touched.email ? true : false}
+                helperText={errors.email}
                 fullWidth
               />
               <TextField
@@ -139,12 +110,8 @@ function RegisterPage({ classes, history }) {
                 value={values.handle}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={
-                  authErrors.handle || (errors.handle && touched.handle)
-                    ? true
-                    : false
-                }
-                helperText={errors.handle || authErrors.handle}
+                error={errors.handle && touched.handle ? true : false}
+                helperText={errors.handle}
                 fullWidth
               />
               <TextField
@@ -156,12 +123,8 @@ function RegisterPage({ classes, history }) {
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={
-                  authErrors.password || (errors.password && touched.password)
-                    ? true
-                    : false
-                }
-                helperText={errors.password || authErrors.password}
+                error={errors.password && touched.password ? true : false}
+                helperText={errors.password}
                 fullWidth
               />
               <TextField
@@ -174,14 +137,11 @@ function RegisterPage({ classes, history }) {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={
-                  authErrors.confirmPassword ||
-                  (errors.confirmPassword && touched.confirmPassword)
+                  errors.confirmPassword && touched.confirmPassword
                     ? true
                     : false
                 }
-                helperText={
-                  errors.confirmPassword || authErrors.confirmPassword
-                }
+                helperText={errors.confirmPassword}
                 fullWidth
               />
               <Button

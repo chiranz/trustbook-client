@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 
 // Module Imports
-import Axios from "axios";
-import * as Yup from "yup";
 import { Formik } from "formik";
 import { Link } from "react-router-dom";
 
@@ -16,6 +14,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 // Local imports
 import TrustImg from "../assets/trust.svg";
+import { loginValidationSchema } from "../utils/YupValidationSchema";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/actions/userActions";
 
 const styles = {
   form: {
@@ -40,29 +41,21 @@ const styles = {
   },
 };
 
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Must be a valid email")
-    .max(255, "Should be less than 255 characters")
-    .required("Email is required!"),
-  password: Yup.string()
-    .min(6, "Shoul be min 6 characters")
-    .max(255, "Can't be more than 255 chars")
-    .required("Password is required!"),
-});
-
 function LoginPage({ classes, history }) {
-  const [errors, setErrors] = useState({});
+  const [globalError, setGlobalError] = useState("");
+  const dispatch = useDispatch();
 
-  const handleSubmit = async (userData) => {
-    return await Axios.post("/login", userData)
-      .then((res) => {
-        localStorage.setItem("FirebaseIdToken", res.data.token);
-        history.push("/");
+  const handleSubmit = (values, { setSubmitting, setErrors, resetForm }) => {
+    dispatch(
+      loginUser({
+        userData: values,
+        history,
+        setSubmitting,
+        setErrors,
+        resetForm,
+        setGlobalError,
       })
-      .catch((err) => {
-        setErrors(err.response.data);
-      });
+    );
   };
   return (
     <Grid container className={classes.form}>
@@ -73,18 +66,12 @@ function LoginPage({ classes, history }) {
           Login
         </Typography>
         <Typography variant="body2" color="error">
-          {errors.global}
+          {globalError && globalError}
         </Typography>
         <Formik
           initialValues={{ email: "", password: "" }}
-          validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting, resetForm }) => {
-            setSubmitting(true);
-            handleSubmit(values).then(() => {
-              resetForm();
-              setSubmitting(false);
-            });
-          }}
+          validationSchema={loginValidationSchema}
+          onSubmit={handleSubmit}
         >
           {({
             values,
