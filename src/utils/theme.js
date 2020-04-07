@@ -13,4 +13,24 @@ export default {
       contrastText: "#ffffff",
     },
   },
+  form: {
+    textAlign: "center",
+  },
+  image: {
+    width: "30px",
+    margin: "1rem auto",
+  },
+  textField: {
+    marginTop: "1rem",
+  },
+  button: {
+    marginTop: "1rem  ",
+    position: "relative",
+  },
+  pageTitle: {
+    margin: "0.5rem auto",
+  },
+  progress: {
+    position: "absolute",
+  },
 };

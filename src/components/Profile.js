@@ -12,11 +12,17 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
-import { uploadProfileImage } from "../redux/actions/userActions";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+// Local Imports
+import { uploadProfileImage, logoutUser } from "../redux/actions/userActions";
+import EditDetails from "./EditDetails";
 
 const styles = (theme) => ({
   paper: {
     padding: 20,
+  },
+  logoutRotate: {
+    transform: "rotate(-90deg)",
   },
   profile: {
     "& .image-wrapper": {
@@ -146,6 +152,15 @@ function Profile({ classes }) {
             <CalendarToday color="primary" />{" "}
             <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
           </div>
+          <Tooltip title="Logout" placement="top">
+            <IconButton onClick={() => dispatch(logoutUser())} color="primary">
+              <ExitToAppIcon className={classes.logoutRotate} color="primary" />
+              <Typography variant="body2" color="textSecondary">
+                Logout
+              </Typography>
+            </IconButton>
+          </Tooltip>
+          <EditDetails />
         </div>
       </Paper>
     ) : (

@@ -76,6 +76,19 @@ export const getUserData = () => async (dispatch) => {
     });
 };
 
+export const editUserDetails = (userData) => async (dispatch) => {
+  dispatch({
+    type: LOADING_USER,
+  });
+  await Axios.post("/user", userData)
+    .then(() => {
+      dispatch(getUserData());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 export const logoutUser = () => (dispatch) => {
   localStorage.removeItem("FirebaseIdToken");
   delete Axios.defaults.headers.common["Authorization"];
