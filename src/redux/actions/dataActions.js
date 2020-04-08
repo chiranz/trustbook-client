@@ -2,8 +2,9 @@ import Axios from "axios";
 import {
   LOADING_SCREAMS,
   SET_SCREAMS,
-  SET_SCREAM,
+  DELETE_SCREAM,
   LIKE_SCREAM,
+  ADD_SCREAM,
 } from "../types";
 
 export const getScreams = () => async (dispatch) => {
@@ -35,4 +36,38 @@ export const likeScream = (screamId) => async (dispatch) => {
       });
     })
     .catch((err) => console.log(err));
+};
+
+// Delete a scream
+export const deleteScream = (screamId, setOpen, setLoading) => async (
+  dispatch
+) => {
+  await Axios.delete(`/screams/${screamId}`)
+    .then(() => {
+      dispatch({
+        type: DELETE_SCREAM,
+        payload: screamId,
+      });
+    })
+    .catch((err) => console.log(err));
+  setLoading(false);
+  setOpen(false);
+};
+
+export const createScream = (scream, setLoading, setOpen, setError) => async (
+  dispatch
+) => {
+  await Axios.post("/scream", scream)
+    .then((res) => {
+      dispatch({
+        type: ADD_SCREAM,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      setError("Post scream failed!");
+      console.log(err);
+    });
+  setLoading(false);
+  setOpen(false);
 };

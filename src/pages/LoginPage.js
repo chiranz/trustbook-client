@@ -30,7 +30,7 @@ const styles = {
     marginTop: "1rem",
   },
   button: {
-    marginTop: "1rem  ",
+    marginTop: "1rem",
     position: "relative",
   },
   pageTitle: {

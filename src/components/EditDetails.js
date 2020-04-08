@@ -98,7 +98,7 @@ function EditDetails({ classes }) {
           <Button onClick={() => setOpen(false)} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button variant="contained" onClick={handleSubmit} color="primary">
             Save
           </Button>
         </DialogActions>

@@ -15,11 +15,13 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import MyButton from "./MyButton";
 import { useSelector, useDispatch } from "react-redux";
 import { likeScream } from "../redux/actions/dataActions";
+import DeleteButton from "./DeleteButton";
 
 const styles = {
   card: {
     display: "flex",
     marginBottom: 20,
+    position: "relative",
   },
   content: {
     padding: 25,
@@ -43,7 +45,11 @@ function Scream({
   classes,
 }) {
   const dispatch = useDispatch();
-  const { likes, authenticated } = useSelector((state) => state.user);
+  const {
+    likes,
+    authenticated,
+    credentials: { handle },
+  } = useSelector((state) => state.user);
   dayjs.extend(relativeTime);
   const [liked, setLiked] = useState(false);
 
@@ -58,6 +64,7 @@ function Scream({
   const handleLike = () => {
     dispatch(likeScream(screamId));
   };
+
   const likeButton = !authenticated ? (
     <MyButton title="Like">
       <Link to="/login">
@@ -90,6 +97,10 @@ function Scream({
         >
           {userHandle}
         </Typography>
+        {authenticated && userHandle === handle ? (
+          <DeleteButton screamId={screamId} />
+        ) : null}
+
         <Typography variant="body2" color="textSecondary">
           {dayjs(createdAt).fromNow()}
         </Typography>

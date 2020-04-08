@@ -10,17 +10,15 @@ import { useSelector } from "react-redux";
 import MyButton from "./MyButton";
 
 // MUI imports
-import AddIcon from "@material-ui/icons/Add";
 import HomeIcon from "@material-ui/icons/Home";
 import Notifications from "@material-ui/icons/Notifications";
+import PostScream from "./PostScream";
 
 export default function Navbar() {
   const { authenticated } = useSelector((state) => state.user);
   const authRoutes = (
     <>
-      <MyButton title="Post a scream" handleClick={() => {}}>
-        <AddIcon />
-      </MyButton>
+      <PostScream />
       <Link to="/">
         <MyButton title="Home">
           <HomeIcon />
