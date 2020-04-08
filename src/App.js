@@ -22,7 +22,6 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import AuthRoute from "./utils/AuthRoute";
 import { getUserData, logoutUser } from "./redux/actions/userActions";
-import { getScreams } from "./redux/actions/dataActions";
 import { persistor } from "./redux/store";
 
 const theme = createMuiTheme(globalTheme);
@@ -40,7 +39,6 @@ function App() {
         dispatch(getUserData());
       }
     }
-    dispatch(getScreams());
   }, [dispatch]);
   return (
     <MuiThemeProvider theme={theme}>

@@ -17,3 +17,6 @@ a {
   max-width: 1200px;
   margin: auto;
 }
+.nav-container svg {
+  color: #ffffff;
+}

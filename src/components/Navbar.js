@@ -5,25 +5,39 @@ import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../redux/actions/userActions";
+import { useSelector } from "react-redux";
+// Local Imports
+import MyButton from "./MyButton";
+
+// MUI imports
+import AddIcon from "@material-ui/icons/Add";
+import HomeIcon from "@material-ui/icons/Home";
+import Notifications from "@material-ui/icons/Notifications";
 
 export default function Navbar() {
   const { authenticated } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const authRoutes = (
     <>
-      <Button color="inherit" component={Link} to="/user">
-        User
-      </Button>
-
-      <Button color="inherit" onClick={() => dispatch(logoutUser())}>
-        Logout
-      </Button>
+      <MyButton title="Post a scream" handleClick={() => {}}>
+        <AddIcon />
+      </MyButton>
+      <Link to="/">
+        <MyButton title="Home">
+          <HomeIcon />
+        </MyButton>
+      </Link>
+      <MyButton title="Notifications" handleClick={() => {}}>
+        <Notifications />
+      </MyButton>
     </>
   );
   const guestRoutes = (
     <>
+      <Link to="/">
+        <MyButton title="Home">
+          <HomeIcon />
+        </MyButton>
+      </Link>
       <Button color="inherit" component={Link} to="/login">
         Login
       </Button>
@@ -37,9 +51,6 @@ export default function Navbar() {
   return (
     <AppBar>
       <Toolbar className="nav-container">
-        <Button color="inherit" component={Link} to="/">
-          Home
-        </Button>
         {authenticated ? authRoutes : guestRoutes}
       </Toolbar>
     </AppBar>

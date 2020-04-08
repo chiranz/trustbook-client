@@ -18,6 +18,10 @@ const styles = (theme) => ({
   button: {
     float: "right",
   },
+  textField: {
+    width: "100%",
+    marginTop: "1rem",
+  },
 });
 
 function EditDetails({ classes }) {

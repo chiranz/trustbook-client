@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 // Mui Imports
-import { withStyles, Button, IconButton, Tooltip } from "@material-ui/core";
+import { withStyles, Button } from "@material-ui/core";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -16,6 +16,7 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 // Local Imports
 import { uploadProfileImage, logoutUser } from "../redux/actions/userActions";
 import EditDetails from "./EditDetails";
+import MyButton from "./MyButton";
 
 const styles = (theme) => ({
   paper: {
@@ -106,14 +107,13 @@ function Profile({ classes }) {
               hidden="hidden"
               onChange={handleImageChange}
             />
-            <Tooltip title="Edit profile picture" placement="top">
-              <IconButton
-                className="button"
-                onClick={() => fileRef.current.click()}
-              >
-                <EditIcon color="primary" />
-              </IconButton>
-            </Tooltip>
+            <MyButton
+              title="Edit profile picture"
+              btnClassName="button"
+              handleClick={() => fileRef.current.click()}
+            >
+              <EditIcon color="primary" />
+            </MyButton>
           </div>
           <hr />
           <div className="profile-details">
@@ -152,14 +152,9 @@ function Profile({ classes }) {
             <CalendarToday color="primary" />{" "}
             <span>Joined {dayjs(createdAt).format("MMM YYYY")}</span>
           </div>
-          <Tooltip title="Logout" placement="top">
-            <IconButton onClick={() => dispatch(logoutUser())} color="primary">
-              <ExitToAppIcon className={classes.logoutRotate} color="primary" />
-              <Typography variant="body2" color="textSecondary">
-                Logout
-              </Typography>
-            </IconButton>
-          </Tooltip>
+          <MyButton title="Logout" handleClick={() => dispatch(logoutUser())}>
+            <ExitToAppIcon className={classes.logoutRotate} color="primary" />
+          </MyButton>
           <EditDetails />
         </div>
       </Paper>
