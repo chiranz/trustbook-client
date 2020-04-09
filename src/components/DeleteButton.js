@@ -54,10 +54,14 @@ function DeleteButton({ screamId, classes }) {
       >
         <DialogTitle>Are you sure to delete this scream?</DialogTitle>
         <DialogActions>
-          <Button color="primary" onClick={() => setOpen(false)}>
+          <Button
+            color="primary"
+            onClick={() => setOpen(false)}
+            disabled={loading}
+          >
             Cancel
           </Button>
-          <Button color="secondary" onClick={handleDelete}>
+          <Button color="secondary" onClick={handleDelete} disabled={loading}>
             <DeleteOutline />
             Delete
             {loading ? (

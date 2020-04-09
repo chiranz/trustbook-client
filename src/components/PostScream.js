@@ -36,11 +36,16 @@ function PostScream({ classes }) {
 
   const handleCreate = () => {
     if (scream.trim() !== "") {
+      const actions = { setLoading, setOpen, setScream, setError };
       setLoading(true);
-      dispatch(createScream({ body: scream }, setLoading, setOpen));
+      dispatch(createScream({ body: scream }, actions));
     } else {
       setError("Can't be empty!");
     }
+  };
+  const handleChange = (e) => {
+    setError("");
+    setScream(e.target.value);
   };
   return (
     <>
@@ -60,10 +65,11 @@ function PostScream({ classes }) {
               id="scream"
               name="scream"
               type="scream"
-              label="Post a scream"
+              label="Scream"
+              placeholder="scream at your friends"
               className={classes.textField}
               value={scream}
-              onChange={(e) => setScream(e.target.value)}
+              onChange={handleChange}
               error={error ? true : false}
               helperText={error}
               fullWidth
@@ -72,14 +78,19 @@ function PostScream({ classes }) {
         </DialogContent>
         <DialogActions>
           <Button
-            color="primary"
             variant="outlined"
             onClick={() => setOpen(false)}
+            disabled={loading}
           >
-            Cancel
+            close
           </Button>
-          <Button variant="outlined" color="primary" onClick={handleCreate}>
-            Create
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleCreate}
+            disabled={loading}
+          >
+            Post
             {loading ? (
               <CircularProgress size={30} className={classes.progress} />
             ) : (

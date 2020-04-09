@@ -76,10 +76,9 @@ export const getUserData = () => async (dispatch) => {
     });
 };
 
-export const editUserDetails = (userData) => async (dispatch) => {
-  dispatch({
-    type: LOADING_USER,
-  });
+export const editUserDetails = (userData, setLoading, setOpen) => async (
+  dispatch
+) => {
   await Axios.post("/user", userData)
     .then(() => {
       dispatch(getUserData());
@@ -87,6 +86,8 @@ export const editUserDetails = (userData) => async (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
+  setLoading(false);
+  setOpen(false);
 };
 
 export const logoutUser = () => (dispatch) => {
@@ -100,7 +101,8 @@ export const logoutUser = () => (dispatch) => {
 export const uploadProfileImage = (formData) => async (dispatch) => {
   dispatch({ type: LOADING_USER });
   await Axios.post("/user/image", formData)
-    .then(() => {
+    .then((res) => {
+      console.log(res.data);
       dispatch(getUserData());
     })
     .catch((err) => {

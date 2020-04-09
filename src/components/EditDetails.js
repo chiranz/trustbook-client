@@ -8,6 +8,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import Tooltip from "@material-ui/core/Tooltip";
 import IconButton from "@material-ui/core/IconButton";
 import EditIcon from "@material-ui/icons/Edit";
@@ -17,10 +18,16 @@ import { editUserDetails } from "../redux/actions/userActions";
 const styles = (theme) => ({
   button: {
     float: "right",
+    position: "relative",
+    marginTop: "1rem",
   },
   textField: {
     width: "100%",
     marginTop: "1rem",
+  },
+
+  progress: {
+    position: "absolute",
   },
 });
 
@@ -30,6 +37,7 @@ function EditDetails({ classes }) {
   const [bio, setBio] = useState("");
   const [location, setLocation] = useState("");
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [website, setWebsite] = useState("");
   useEffect(() => {
     if (Object.values(credentials).length) {
@@ -39,9 +47,9 @@ function EditDetails({ classes }) {
     }
   }, [credentials]);
   const handleSubmit = () => {
+    setLoading(true);
     const userDetails = { bio, location, website };
-    dispatch(editUserDetails(userDetails));
-    setOpen(false);
+    dispatch(editUserDetails(userDetails, setLoading, setOpen));
   };
 
   return (
@@ -95,11 +103,25 @@ function EditDetails({ classes }) {
           </form>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpen(false)} color="primary">
+          <Button
+            onClick={() => setOpen(false)}
+            color="primary"
+            disabled={loading}
+          >
             Cancel
           </Button>
-          <Button variant="contained" onClick={handleSubmit} color="primary">
+          <Button
+            variant="contained"
+            onClick={handleSubmit}
+            color="primary"
+            disabled={loading}
+          >
             Save
+            {loading ? (
+              <CircularProgress size={30} className={classes.progress} />
+            ) : (
+              ""
+            )}
           </Button>
         </DialogActions>
       </Dialog>

@@ -4,7 +4,7 @@ import {
   SET_SCREAMS,
   DELETE_SCREAM,
   LIKE_SCREAM,
-  ADD_SCREAM,
+  POST_SCREAM,
 } from "../types";
 
 export const getScreams = () => async (dispatch) => {
@@ -54,20 +54,22 @@ export const deleteScream = (screamId, setOpen, setLoading) => async (
   setOpen(false);
 };
 
-export const createScream = (scream, setLoading, setOpen, setError) => async (
-  dispatch
-) => {
+export const createScream = (
+  scream,
+  { setLoading, setOpen, setScream, setError }
+) => async (dispatch) => {
   await Axios.post("/scream", scream)
     .then((res) => {
       dispatch({
-        type: ADD_SCREAM,
+        type: POST_SCREAM,
         payload: res.data,
       });
+      setOpen(false);
+      setScream("");
     })
     .catch((err) => {
       setError("Post scream failed!");
       console.log(err);
     });
   setLoading(false);
-  setOpen(false);
 };

@@ -10,4 +10,4 @@ export const SET_SCREAM = "SET_SCREAM";
 export const LOADING_SCREAMS = "LOADING_SCREAMS";
 export const LIKE_SCREAM = "LIKE_SCREAM";
 export const DELETE_SCREAM = "DELETE_SCREAM";
-export const ADD_SCREAM = "ADD_SCREAM";
+export const POST_SCREAM = "POST_SCREAM";
