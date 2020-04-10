@@ -16,10 +16,17 @@ const styles = (theme) => ({
   },
 });
 
-function CenteredLoading({ classes }) {
+function CenteredLoading({ classes, size, thickness }) {
   return (
-    <div className={classes.centeredDiv}>
-      <CircularProgress className={classes.loader} size={30} />
+    <div
+      style={{ height: `${size ? size * 2 + "px" : ""}` }}
+      className={classes.centeredDiv}
+    >
+      <CircularProgress
+        thickness={thickness || 5}
+        className={classes.loader}
+        size={size || 30}
+      />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import "./App.css";
 import globalTheme from "./utils/theme";
 
 // Components
-import Navbar from "./components/Navbar";
+import Navbar from "./components/layout/Navbar";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -23,6 +23,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AuthRoute from "./utils/AuthRoute";
 import { getUserData, logoutUser } from "./redux/actions/userActions";
 import { persistor } from "./redux/store";
+import UserPage from "./pages/UserPage";
 
 const theme = createMuiTheme(globalTheme);
 
@@ -50,6 +51,7 @@ function App() {
               <Route exact path="/" component={HomePage} />
               <AuthRoute exact path="/login" component={LoginPage} />
               <AuthRoute exact path="/register" component={RegisterPage} />
+              <Route exact path="/user/:handle" component={UserPage} />
             </Switch>
           </div>
         </PersistGate>

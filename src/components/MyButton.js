@@ -7,12 +7,13 @@ export default function MyButton({
   tipClassName,
   children,
   handleClick,
+  btnColor,
 }) {
   return (
     <Tooltip title={title} placement="top" className={tipClassName}>
       <IconButton
         onClick={handleClick}
-        color="primary"
+        color={btnColor}
         className={btnClassName}
       >
         {children}

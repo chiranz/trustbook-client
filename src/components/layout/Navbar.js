@@ -7,12 +7,12 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Button from "@material-ui/core/Button";
 import { useSelector } from "react-redux";
 // Local Imports
-import MyButton from "./MyButton";
+import MyButton from "../MyButton";
 
 // MUI imports
 import HomeIcon from "@material-ui/icons/Home";
 import Notifications from "@material-ui/icons/Notifications";
-import PostScream from "./PostScream";
+import PostScream from "../scream/PostScream";
 
 export default function Navbar() {
   const { authenticated } = useSelector((state) => state.user);

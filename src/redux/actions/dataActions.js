@@ -5,6 +5,8 @@ import {
   DELETE_SCREAM,
   LIKE_SCREAM,
   POST_SCREAM,
+  SET_SCREAM,
+  SUBMIT_COMMENT,
 } from "../types";
 
 export const getScreams = () => async (dispatch) => {
@@ -72,4 +74,51 @@ export const createScream = (
       console.log(err);
     });
   setLoading(false);
+};
+
+export const getScream = (screamId, { setLoading }) => async (dispatch) => {
+  await Axios.get(`/screams/${screamId}`)
+    .then((res) => {
+      dispatch({
+        type: SET_SCREAM,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  setLoading(false);
+};
+
+export const submitComment = (
+  screamId,
+  comment,
+  { setLoading, setComment }
+) => async (dispatch) => {
+  await Axios.post(`/screams/${screamId}/comment`, comment)
+    .then((res) => {
+      dispatch({
+        type: SUBMIT_COMMENT,
+        payload: res.data,
+      });
+    })
+    .catch((err) => console.log(err));
+  setComment("");
+  setLoading(false);
+};
+
+export const getUserData = (userHandle) => async (dispatch) => {
+  await Axios.get(`/user/${userHandle}`)
+    .then((res) => {
+      dispatch({
+        type: SET_SCREAMS,
+        payload: res.data.screams,
+      });
+    })
+    .catch(() => {
+      dispatch({
+        type: SET_SCREAMS,
+        payload: [],
+      });
+    });
 };

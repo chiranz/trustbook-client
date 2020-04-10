@@ -14,9 +14,12 @@ import CalendarToday from "@material-ui/icons/CalendarToday";
 import EditIcon from "@material-ui/icons/Edit";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 // Local Imports
-import { uploadProfileImage, logoutUser } from "../redux/actions/userActions";
+import {
+  uploadProfileImage,
+  logoutUser,
+} from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails";
-import MyButton from "./MyButton";
+import MyButton from "../MyButton";
 
 const styles = (theme) => ({
   paper: {
@@ -173,8 +176,8 @@ function Profile({ classes }) {
             Login
           </Button>
           <Button
-            variant="contained"
-            color="secondary"
+            variant="outlined"
+            color="primary"
             component={Link}
             to="/register"
           >

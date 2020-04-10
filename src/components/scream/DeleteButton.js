@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 // Local imports
 import { withStyles } from "@material-ui/core";
-import MyButton from "./MyButton";
-import { deleteScream } from "../redux/actions/dataActions";
+import MyButton from "../MyButton";
+import { deleteScream } from "../../redux/actions/dataActions";
 import { useDispatch } from "react-redux";
 // MUI imports
 import DeleteForever from "@material-ui/icons/DeleteForever";

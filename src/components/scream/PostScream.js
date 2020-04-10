@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core";
 // Local imports
 import { useDispatch } from "react-redux";
-import { createScream } from "../redux/actions/dataActions";
+import { createScream } from "../../redux/actions/dataActions";
 // MUI import
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
@@ -14,7 +14,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import AddIcon from "@material-ui/icons/Add";
 import DialogActions from "@material-ui/core/DialogActions";
 // Local imports
-import MyButton from "./MyButton";
+import MyButton from "../MyButton";
 
 const styles = {
   button: {
