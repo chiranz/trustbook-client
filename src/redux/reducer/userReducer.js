@@ -4,6 +4,7 @@ import {
   SET_UNAUTHENTICATED,
   LOADING_USER,
   LIKE_SCREAM,
+  MARK_NOTIFICATIONS_READ,
 } from "../types";
 
 const initialState = {
@@ -30,6 +31,11 @@ export default function (state = initialState, action) {
     case SET_UNAUTHENTICATED:
       return initialState;
 
+    case MARK_NOTIFICATIONS_READ:
+      state.notifications.map((notification) => (notification.read = true));
+      return {
+        ...state,
+      };
     case LOADING_USER:
       return { ...state, loading: true };
     case LIKE_SCREAM:

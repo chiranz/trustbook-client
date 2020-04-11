@@ -1,4 +1,9 @@
-import { SET_USER, SET_UNAUTHENTICATED, LOADING_USER } from "../types";
+import {
+  SET_USER,
+  SET_UNAUTHENTICATED,
+  LOADING_USER,
+  MARK_NOTIFICATIONS_READ,
+} from "../types";
 import Axios from "axios";
 
 const setAuthorizationHeader = (token) => {
@@ -108,4 +113,14 @@ export const uploadProfileImage = (formData) => async (dispatch) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+export const markNotificationsRead = (notificationIds) => async (dispatch) => {
+  await Axios.post("/notifications", notificationIds)
+    .then(() => {
+      dispatch({
+        type: MARK_NOTIFICATIONS_READ,
+      });
+    })
+    .catch((err) => console.log(err));
 };

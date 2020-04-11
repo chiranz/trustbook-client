@@ -11,8 +11,8 @@ import MyButton from "../MyButton";
 
 // MUI imports
 import HomeIcon from "@material-ui/icons/Home";
-import Notifications from "@material-ui/icons/Notifications";
 import PostScream from "../scream/PostScream";
+import Notifications from "./Notifications";
 
 export default function Navbar() {
   const { authenticated } = useSelector((state) => state.user);
@@ -24,9 +24,7 @@ export default function Navbar() {
           <HomeIcon />
         </MyButton>
       </Link>
-      <MyButton title="Notifications" handleClick={() => {}}>
-        <Notifications />
-      </MyButton>
+      <Notifications />
     </>
   );
   const guestRoutes = (

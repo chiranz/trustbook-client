@@ -16,6 +16,9 @@ export default function HomePage() {
 
   return (
     <Grid container spacing={4}>
+      <Grid item sm={4} xs={12}>
+        <Profile />
+      </Grid>
       <Grid item sm={8} xs={12}>
         {loading ? (
           <CenteredLoading />
@@ -27,9 +30,6 @@ export default function HomePage() {
             </Scream>
           ))
         )}
-      </Grid>
-      <Grid item sm={4} xs={12}>
-        <Profile />
       </Grid>
     </Grid>
   );

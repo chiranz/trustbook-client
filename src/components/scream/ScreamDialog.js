@@ -1,5 +1,5 @@
 // Module import
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { withStyles } from "@material-ui/core";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
@@ -58,7 +58,7 @@ const styles = {
   },
 };
 
-function ScreamDialog({ classes, screamId }) {
+function ScreamDialog({ classes, screamId, userHandle, openDialog }) {
   const {
     data: { scream },
     user: { authenticated },
@@ -66,12 +66,27 @@ function ScreamDialog({ classes, screamId }) {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [oldPath, setOldPath] = useState(null);
 
-  const handleOpen = () => {
+  const handleOpen = useCallback(() => {
+    let oldPath = window.location.pathname;
+    setOldPath(oldPath);
+    let newPath = `user/${userHandle}/scream/${screamId}`;
+    window.history.pushState(null, null, newPath);
     const actions = { setLoading };
     setLoading(true);
     setOpen(true);
     dispatch(getScream(screamId, actions));
+  }, [setLoading, screamId, dispatch, userHandle]);
+
+  useEffect(() => {
+    if (openDialog) {
+      handleOpen();
+    }
+  }, [openDialog, handleOpen]);
+  const handleClose = () => {
+    setOpen(false);
+    window.history.pushState(null, null, oldPath);
   };
 
   return (
@@ -83,15 +98,10 @@ function ScreamDialog({ classes, screamId }) {
       >
         <UnfoldMore color="primary" />
       </MyButton>
-      <Dialog
-        maxWidth="sm"
-        fullWidth
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+      <Dialog maxWidth="sm" fullWidth open={open} onClose={handleClose}>
         <MyButton
           title="Close"
-          handleClick={() => setOpen(false)}
+          handleClick={handleClose}
           btnClassName={classes.closeButton}
         >
           <CloseIcon />

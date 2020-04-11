@@ -52,6 +52,11 @@ function App() {
               <AuthRoute exact path="/login" component={LoginPage} />
               <AuthRoute exact path="/register" component={RegisterPage} />
               <Route exact path="/user/:handle" component={UserPage} />
+              <Route
+                exact
+                path="/user/:handle/scream/:screamId"
+                component={UserPage}
+              />
             </Switch>
           </div>
         </PersistGate>

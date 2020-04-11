@@ -42,6 +42,7 @@ function Scream({
     commentCount,
   },
   classes,
+  openDialog,
 }) {
   const {
     authenticated,
@@ -79,7 +80,11 @@ function Scream({
           <ChatIcon color="primary" />
         </MyButton>
         <span>{commentCount} comments</span>
-        <ScreamDialog screamId={screamId} />
+        <ScreamDialog
+          screamId={screamId}
+          userHandle={userHandle}
+          openDialog={openDialog}
+        />
       </CardContent>
     </Card>
   );
