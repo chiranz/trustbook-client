@@ -4,7 +4,7 @@ import Scream from "../components/scream/Scream";
 import { useSelector, useDispatch } from "react-redux";
 import Profile from "../components/profile/Profile";
 import { getScreams } from "../redux/actions/dataActions";
-import CenteredLoading from "../components/CenteredLoading";
+import ScreamSkeleton from "../components/skeleton/ScreamSkeleton";
 
 export default function HomePage() {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ export default function HomePage() {
       </Grid>
       <Grid item sm={8} xs={12}>
         {loading ? (
-          <CenteredLoading />
+          <ScreamSkeleton />
         ) : (
           screams.length &&
           screams.map((scream, id) => (

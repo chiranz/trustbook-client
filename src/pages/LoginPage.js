@@ -5,7 +5,6 @@ import { Formik } from "formik";
 import { Link } from "react-router-dom";
 
 // MUI imports
-import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
@@ -17,31 +16,13 @@ import TrustImg from "../assets/trust.svg";
 import { loginValidationSchema } from "../utils/YupValidationSchema";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/actions/userActions";
+import { makeStyles } from "@material-ui/core/styles";
 
-const styles = {
-  form: {
-    textAlign: "center",
-  },
-  image: {
-    width: "30px",
-    margin: "1rem auto",
-  },
-  textField: {
-    marginTop: "1rem",
-  },
-  button: {
-    marginTop: "1rem",
-    position: "relative",
-  },
-  pageTitle: {
-    margin: "0.5rem auto",
-  },
-  progress: {
-    position: "absolute",
-  },
-};
+const useStyles = makeStyles((theme) => ({
+  ...theme.formStyles,
+}));
 
-function LoginPage({ classes, history }) {
+function LoginPage({ history }) {
   const [globalError, setGlobalError] = useState("");
   const dispatch = useDispatch();
 
@@ -57,6 +38,7 @@ function LoginPage({ classes, history }) {
       })
     );
   };
+  const classes = useStyles();
   return (
     <Grid container className={classes.form}>
       <Grid item sm />
@@ -137,4 +119,4 @@ function LoginPage({ classes, history }) {
   );
 }
 
-export default withStyles(styles)(LoginPage);
+export default LoginPage;

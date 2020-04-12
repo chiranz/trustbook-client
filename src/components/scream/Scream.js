@@ -4,7 +4,9 @@ import { Link } from "react-router-dom";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 // MUI imports
-import { withStyles, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
@@ -16,20 +18,21 @@ import DeleteButton from "./DeleteButton";
 import ScreamDialog from "./ScreamDialog";
 import LikeButton from "./LikeButton";
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   card: {
+    position: "relative",
     display: "flex",
     marginBottom: 20,
-    position: "relative",
+  },
+  image: {
+    minWidth: 200,
   },
   content: {
     padding: 25,
     objectFit: "cover",
   },
-  image: {
-    minWidth: 200,
-  },
-};
+}));
 
 function Scream({
   scream: {
@@ -41,7 +44,6 @@ function Scream({
     likeCount,
     commentCount,
   },
-  classes,
   openDialog,
 }) {
   const {
@@ -49,7 +51,7 @@ function Scream({
     credentials: { handle },
   } = useSelector((state) => state.user);
   dayjs.extend(relativeTime);
-
+  const classes = useStyles();
   return (
     <Card className={classes.card}>
       <CardMedia
@@ -90,4 +92,4 @@ function Scream({
   );
 }
 
-export default withStyles(styles)(Scream);
+export default Scream;

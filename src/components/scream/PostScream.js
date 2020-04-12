@@ -1,7 +1,8 @@
 // Module import
 import React, { useState } from "react";
 import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
 // Local imports
 import { useDispatch } from "react-redux";
 import { createScream } from "../../redux/actions/dataActions";
@@ -16,7 +17,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 // Local imports
 import MyButton from "../MyButton";
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   button: {
     marginTop: "1rem",
     position: "relative",
@@ -25,15 +27,16 @@ const styles = {
   progress: {
     position: "absolute",
   },
-};
+}));
 
-function PostScream({ classes }) {
+function PostScream() {
   const dispatch = useDispatch();
   const [scream, setScream] = useState("");
   const [error, setError] = useState("");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const classes = useStyles();
   const handleCreate = () => {
     if (scream.trim() !== "") {
       const actions = { setLoading, setOpen, setScream, setError };
@@ -103,4 +106,4 @@ function PostScream({ classes }) {
   );
 }
 
-export default withStyles(styles)(PostScream);
+export default PostScream;

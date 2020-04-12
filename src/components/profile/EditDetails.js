@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 // Mui Imports
 import Button from "@material-ui/core/Button";
@@ -15,7 +15,7 @@ import EditIcon from "@material-ui/icons/Edit";
 // Local Imports
 import { editUserDetails } from "../../redux/actions/userActions";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
   button: {
     float: "right",
     position: "relative",
@@ -29,9 +29,9 @@ const styles = (theme) => ({
   progress: {
     position: "absolute",
   },
-});
+}));
 
-function EditDetails({ classes }) {
+function EditDetails() {
   const { credentials } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [bio, setBio] = useState("");
@@ -51,7 +51,7 @@ function EditDetails({ classes }) {
     const userDetails = { bio, location, website };
     dispatch(editUserDetails(userDetails, setLoading, setOpen));
   };
-
+  const classes = useStyles();
   return (
     <>
       <Tooltip title="Edit Profile" placement="top">
@@ -129,4 +129,4 @@ function EditDetails({ classes }) {
   );
 }
 
-export default withStyles(styles)(EditDetails);
+export default EditDetails;

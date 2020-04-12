@@ -1,8 +1,9 @@
 import React from "react";
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   centeredDiv: {
     display: "flex",
     justifyContent: "center",
@@ -11,12 +12,10 @@ const styles = (theme) => ({
     width: "100%",
     position: "relative",
   },
-  loader: {
-    position: "absolute",
-  },
-});
+}));
 
-function CenteredLoading({ classes, size, thickness }) {
+function CenteredLoading({ size, thickness }) {
+  const classes = useStyles();
   return (
     <div
       style={{ height: `${size ? size * 2 + "px" : ""}` }}
@@ -31,4 +30,4 @@ function CenteredLoading({ classes, size, thickness }) {
   );
 }
 
-export default withStyles(styles)(CenteredLoading);
+export default CenteredLoading;

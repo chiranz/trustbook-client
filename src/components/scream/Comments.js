@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 
 // Mui import
@@ -7,7 +7,8 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   visibleSeperator: {
     marginBottom: 20,
     width: "100%",
@@ -26,16 +27,16 @@ const styles = (theme) => ({
   commentData: {
     marginLeft: 20,
   },
-});
+}));
 
 function Comments(props) {
-  const { classes } = props;
   const [comments, setComment] = useState([]);
   useEffect(() => {
     if (props.comments) {
       setComment(props.comments);
     }
   }, [props.comments]);
+  const classes = useStyles();
   return (
     <Grid container>
       {comments.map(({ body, createdAt, userHandle, userImage }, index) => {
@@ -67,7 +68,7 @@ function Comments(props) {
                 </div>
               </Grid>
             </Grid>
-            {index < comments.length && (
+            {index < comments.length - 1 && (
               <hr className={classes.visibleSeperator} />
             )}
           </Fragment>
@@ -77,4 +78,4 @@ function Comments(props) {
   );
 }
 
-export default withStyles(styles)(Comments);
+export default Comments;

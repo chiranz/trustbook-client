@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 // MUI Textfield
 import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import CircularProgress from "@material-ui/core/CircularProgress";
@@ -11,7 +11,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 // Local Imports
 import { submitComment } from "../../redux/actions/dataActions";
 
-const styles = (theme) => ({
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   button: {
     marginTop: "1rem",
     position: "relative",
@@ -25,9 +26,9 @@ const styles = (theme) => ({
     width: "100%",
     borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
   },
-});
+}));
 
-function CommentForm({ classes, screamId }) {
+function CommentForm({ screamId }) {
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -48,7 +49,7 @@ function CommentForm({ classes, screamId }) {
     setError("");
     setComment(e.target.value);
   };
-
+  const classes = useStyles();
   return (
     <Grid item sm={12} style={{ textAlign: "center" }}>
       <form onSubmit={handleSubmit}>
@@ -85,4 +86,4 @@ function CommentForm({ classes, screamId }) {
   );
 }
 
-export default withStyles(styles)(CommentForm);
+export default CommentForm;

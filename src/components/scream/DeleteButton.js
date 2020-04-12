@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // Local imports
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import MyButton from "../MyButton";
 import { deleteScream } from "../../redux/actions/dataActions";
 import { useDispatch } from "react-redux";
@@ -13,7 +13,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import DeleteOutline from "@material-ui/icons/DeleteOutline";
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   deleteButton: {
     position: "absolute",
     left: "90%",
@@ -22,13 +23,12 @@ const styles = {
     marginTop: "1rem",
     position: "relative",
   },
-
   progress: {
     position: "absolute",
   },
-};
+}));
 
-function DeleteButton({ screamId, classes }) {
+function DeleteButton({ screamId }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ function DeleteButton({ screamId, classes }) {
     setLoading(true);
     dispatch(deleteScream(screamId, setOpen, setLoading));
   };
-
+  const classes = useStyles();
   return (
     <>
       <MyButton
@@ -76,4 +76,4 @@ function DeleteButton({ screamId, classes }) {
   );
 }
 
-export default withStyles(styles)(DeleteButton);
+export default DeleteButton;

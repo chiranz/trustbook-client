@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Tooltip, IconButton } from "@material-ui/core";
 
 export default function MyButton({
@@ -9,9 +9,11 @@ export default function MyButton({
   handleClick,
   btnColor,
 }) {
+  const iconRef = useRef();
   return (
     <Tooltip title={title} placement="top" className={tipClassName}>
       <IconButton
+        ref={iconRef}
         onClick={handleClick}
         color={btnColor}
         className={btnClassName}

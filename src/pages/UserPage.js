@@ -6,10 +6,11 @@ import Axios from "axios";
 import Grid from "@material-ui/core/Grid";
 // Local Imports
 import { getUserData } from "../redux/actions/dataActions";
-import CenteredLoading from "../components/CenteredLoading";
 import Scream from "../components/scream/Scream";
 import StaticProfile from "../components/profile/StaticProfile";
 import { Typography } from "@material-ui/core";
+import ScreamSkeleton from "../components/skeleton/ScreamSkeleton";
+import UserProfileSkeleton from "../components/skeleton/UserProfileSkeleton";
 
 export default function UserPage({
   match: {
@@ -45,14 +46,14 @@ export default function UserPage({
     <Grid container spacing={4}>
       <Grid item sm={4} xs={12}>
         {!profile ? (
-          <CenteredLoading size={50} thickness={3} />
+          <UserProfileSkeleton />
         ) : (
           <StaticProfile profile={profile} />
         )}
       </Grid>
       <Grid item sm={8} xs={12}>
         {loading ? (
-          <CenteredLoading size={100} thickness={2} />
+          <ScreamSkeleton />
         ) : !screams.length ? (
           <Typography variant="h5" color="textSecondary">
             No screams from this user!

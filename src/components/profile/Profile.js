@@ -3,10 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import dayjs from "dayjs";
 // Mui Imports
-import { withStyles, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import CircularProgress from "@material-ui/core/CircularProgress";
 import MuiLink from "@material-ui/core/Link";
 import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
@@ -20,66 +20,13 @@ import {
 } from "../../redux/actions/userActions";
 import EditDetails from "./EditDetails";
 import MyButton from "../MyButton";
+import UserProfileSkeleteon from "../skeleton/UserProfileSkeleton";
 
-const styles = (theme) => ({
-  paper: {
-    padding: 20,
-  },
-  logoutRotate: {
-    transform: "rotate(-90deg)",
-  },
-  profile: {
-    "& .image-wrapper": {
-      textAlign: "center",
-      position: "relative",
-      "& .button": {
-        position: "absolute",
-        top: "80%",
-        left: "70%",
-      },
-    },
-    "& .profile-image": {
-      width: 200,
-      height: 200,
-      objectFit: "cover",
-      maxWidth: "100%",
-      borderRadius: "50%",
-    },
-    "& .profile-details": {
-      textAlign: "center",
-      "& span, svg": {
-        verticalAlign: "middle",
-      },
-      "& a": {
-        color: theme.palette.primary.main,
-      },
-    },
-    "& hr": {
-      border: "none",
-      margin: "0 0 10px 0",
-    },
-    "& svg.button": {
-      "&:hover": {
-        cursor: "pointer",
-      },
-    },
-  },
-  buttons: {
-    textAlign: "center",
-    "& a": {
-      margin: "20px 10px",
-    },
-  },
-  progress: {
-    display: "flex",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    marginTop: "3rem",
-  },
-});
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
+}));
 
-function Profile({ classes }) {
+function Profile() {
   const dispatch = useDispatch();
 
   const fileRef = useRef();
@@ -90,7 +37,7 @@ function Profile({ classes }) {
     formData.append("image", userImage, userImage.name);
     dispatch(uploadProfileImage(formData));
   };
-
+  const classes = useStyles();
   const {
     authenticated,
     credentials: { handle, createdAt, imageUrl, bio, website, location },
@@ -187,12 +134,10 @@ function Profile({ classes }) {
       </Paper>
     )
   ) : (
-    <div className={classes.progress}>
-      <CircularProgress size={30} />
-    </div>
+    <UserProfileSkeleteon width={200} />
   );
 
   return profileMarkup;
 }
 
-export default withStyles(styles)(Profile);
+export default Profile;

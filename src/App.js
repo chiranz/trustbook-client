@@ -6,8 +6,7 @@ import JwtDecode from "jwt-decode";
 import Axios from "axios";
 import { PersistGate } from "redux-persist/integration/react";
 // MUI theme provider
-import { ThemeProvider as MuiThemeProvider } from "@material-ui/core/styles";
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 // Local imports
 import "./App.css";
@@ -27,6 +26,9 @@ import UserPage from "./pages/UserPage";
 
 const theme = createMuiTheme(globalTheme);
 
+Axios.defaults.baseURL =
+  "https://asia-east2-trustbook-c2b3d.cloudfunctions.net/api";
+
 function App() {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -42,7 +44,7 @@ function App() {
     }
   }, [dispatch]);
   return (
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Router>
         <PersistGate persistor={persistor}>
           <Navbar />
@@ -61,7 +63,7 @@ function App() {
           </div>
         </PersistGate>
       </Router>
-    </MuiThemeProvider>
+    </ThemeProvider>
   );
 }
 

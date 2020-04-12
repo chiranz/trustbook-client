@@ -1,6 +1,6 @@
 // Module import
 import React, { useState, useEffect, useCallback } from "react";
-import { withStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
 import dayjs from "dayjs";
 import { Link } from "react-router-dom";
 // Local imports
@@ -21,7 +21,8 @@ import LikeButton from "./LikeButton";
 import Comments from "./Comments";
 import CommentForm from "./CommentForm";
 
-const styles = {
+const useStyles = makeStyles((theme) => ({
+  ...theme.spreadThis,
   button: {
     marginTop: "1rem",
     position: "relative",
@@ -29,15 +30,6 @@ const styles = {
 
   progress: {
     position: "absolute",
-  },
-  invisibleSeperator: {
-    border: "none",
-    margin: 4,
-  },
-  visibleSeperator: {
-    marginBottom: 20,
-    width: "100%",
-    borderBottom: "1px solid rgba(0, 0, 0, 0.1)",
   },
   profileImage: {
     height: 200,
@@ -56,9 +48,13 @@ const styles = {
     position: "absolute",
     left: "90%",
   },
-};
+  invisibleSeperator: {
+    border: "none",
+    margin: 4,
+  },
+}));
 
-function ScreamDialog({ classes, screamId, userHandle, openDialog }) {
+function ScreamDialog({ screamId, userHandle, openDialog }) {
   const {
     data: { scream },
     user: { authenticated },
@@ -68,6 +64,7 @@ function ScreamDialog({ classes, screamId, userHandle, openDialog }) {
   const [loading, setLoading] = useState(false);
   const [oldPath, setOldPath] = useState(null);
 
+  const classes = useStyles();
   const handleOpen = useCallback(() => {
     let oldPath = window.location.pathname;
     setOldPath(oldPath);
@@ -155,4 +152,4 @@ function ScreamDialog({ classes, screamId, userHandle, openDialog }) {
   );
 }
 
-export default withStyles(styles)(ScreamDialog);
+export default ScreamDialog;
