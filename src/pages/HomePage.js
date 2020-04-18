@@ -1,17 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Scream from "../components/scream/Scream";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Profile from "../components/profile/Profile";
-import { getScreams } from "../redux/actions/dataActions";
 import ScreamSkeleton from "../components/skeleton/ScreamSkeleton";
 
 export default function HomePage() {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getScreams());
-  }, [dispatch]);
-
   const { screams, loading } = useSelector((state) => state.data);
 
   return (

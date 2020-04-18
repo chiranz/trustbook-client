@@ -23,6 +23,7 @@ import AuthRoute from "./utils/AuthRoute";
 import { getUserData, logoutUser } from "./redux/actions/userActions";
 import { persistor } from "./redux/store";
 import UserPage from "./pages/UserPage";
+import { getScreams } from "./redux/actions/dataActions";
 
 const theme = createMuiTheme(globalTheme);
 
@@ -42,6 +43,7 @@ function App() {
         dispatch(getUserData());
       }
     }
+    dispatch(getScreams());
   }, [dispatch]);
   return (
     <ThemeProvider theme={theme}>
