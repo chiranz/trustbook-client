@@ -9,11 +9,11 @@ import {
   SUBMIT_COMMENT,
 } from "../types";
 
-export const getScreams = () => async (dispatch) => {
+export const getScreams = () => (dispatch) => {
   dispatch({
     type: LOADING_SCREAMS,
   });
-  await Axios.get("/screams")
+  Axios.get("/screams")
     .then((res) => {
       dispatch({
         type: SET_SCREAMS,
