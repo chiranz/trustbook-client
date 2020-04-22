@@ -32,7 +32,6 @@ Axios.defaults.baseURL =
 
 function App() {
   const dispatch = useDispatch();
-  console.log("rendered");
   useEffect(() => {
     const token = localStorage.FirebaseIdToken;
     if (token) {

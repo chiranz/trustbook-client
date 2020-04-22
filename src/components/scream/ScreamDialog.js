@@ -68,7 +68,7 @@ function ScreamDialog({ screamId, userHandle, openDialog }) {
   const handleOpen = useCallback(() => {
     let oldPath = window.location.pathname;
     setOldPath(oldPath);
-    let newPath = `user/${userHandle}/scream/${screamId}`;
+    let newPath = `/user/${userHandle}/scream/${screamId}`;
     window.history.pushState(null, null, newPath);
     const actions = { setLoading };
     setLoading(true);
@@ -120,7 +120,7 @@ function ScreamDialog({ screamId, userHandle, openDialog }) {
                   component={Link}
                   color="primary"
                   variant="h5"
-                  to={`/users/${scream && scream.userHandle}`}
+                  to={`/user/${scream && scream.userHandle}`}
                 >
                   @{scream && scream.userHandle}
                 </Typography>

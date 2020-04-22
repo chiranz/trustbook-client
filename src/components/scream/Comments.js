@@ -53,7 +53,7 @@ function Comments(props) {
               <Grid sm={9}>
                 <div className={classes.commentData}>
                   <Typography
-                    to={`/users/${userHandle}`}
+                    to={`/user/${userHandle}`}
                     component={Link}
                     variant="h5"
                     color="primary"

@@ -64,7 +64,7 @@ function Scream({
           color="primary"
           variant="h5"
           component={Link}
-          to={`user/${userHandle}`}
+          to={`/user/${userHandle}`}
         >
           {userHandle}
         </Typography>

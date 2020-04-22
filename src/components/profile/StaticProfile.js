@@ -28,7 +28,7 @@ function StaticProfile({
         <div className="profile-details">
           <MuiLink
             component={Link}
-            to={`users/${handle}`}
+            to={`/user/${handle}`}
             variant="h5"
             color="inherit"
           >

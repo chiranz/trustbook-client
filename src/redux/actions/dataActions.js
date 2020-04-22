@@ -84,7 +84,8 @@ export const getScream = (screamId, { setLoading }) => async (dispatch) => {
         payload: res.data,
       });
     })
-    .catch((err) => {
+    .catch((err) => { 
+      console.log("Error Occured");
       console.log(err);
     });
   setLoading(false);
