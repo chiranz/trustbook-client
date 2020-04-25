@@ -133,17 +133,19 @@ function ScreamDialog({ screamId, userHandle, openDialog }) {
                 <hr className={classes.invisibleSeperator} />
                 <Typography variant="body1">{scream && scream.body}</Typography>
 
-                <LikeButton screamId={scream.screamId} />
-                <span>{scream.likeCount} likes</span>
+                <LikeButton screamId={scream && scream.screamId} />
+                <span>{scream && scream.likeCount} likes</span>
 
                 <MyButton title="comments">
                   <ChatIcon color="primary" />
                 </MyButton>
-                <span>{scream.commentCount} comments</span>
+                <span>{scream && scream.commentCount} comments</span>
               </Grid>
               <hr className={classes.visibleSeperator} />
-              {authenticated && <CommentForm screamId={scream.screamId} />}
-              <Comments comments={scream.comments} />
+              {authenticated && (
+                <CommentForm screamId={scream && scream.screamId} />
+              )}
+              <Comments comments={scream && scream.comments} />
             </Grid>
           )}
         </DialogContent>
