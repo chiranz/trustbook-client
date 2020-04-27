@@ -33,6 +33,7 @@ function PostScream() {
   const dispatch = useDispatch();
   const [scream, setScream] = useState("");
   const [error, setError] = useState("");
+  const [charCount, setCharCount] = useState(280);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -48,8 +49,16 @@ function PostScream() {
   };
   const handleChange = (e) => {
     setError("");
+    setCharCount(280 - e.target.value.length);
+    if (charCount <= 0) {
+      return;
+    }
     setScream(e.target.value);
   };
+  const charHelper =
+    charCount > 0
+      ? `${charCount} character's left`
+      : "Character limit exceeded";
   return (
     <>
       <MyButton title="Post a scream" handleClick={() => setOpen(true)}>
@@ -74,8 +83,11 @@ function PostScream() {
               value={scream}
               onChange={handleChange}
               error={error ? true : false}
-              helperText={error}
+              helperText={error || charHelper}
               fullWidth
+              multiline
+              rows={4}
+              autoFocus
             />
           </form>
         </DialogContent>

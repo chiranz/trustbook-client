@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import { makeStyles } from "@material-ui/core/styles";
 // Local imports
 import UserSkeleton from "./UserSkeleton";
+import CenteredLoading from "../CenteredLoading";
 
 const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ScreamSkeleton() {
+export function ScreamSkeleton() {
   const classes = useStyles();
   const content = Array.from({ length: 5 }).map((_, index) => {
     return (
@@ -69,4 +70,26 @@ function ScreamSkeleton() {
   return <Fragment>{content}</Fragment>;
 }
 
-export default ScreamSkeleton;
+function ScreamLoading() {
+  const classes = useStyles();
+  const content = Array.from({ length: 5 }).map((_, index) => {
+    return (
+      <Card
+        className={classes.card}
+        key={index}
+        style={{
+          minHeight: "150px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <CenteredLoading />
+      </Card>
+    );
+  });
+
+  return <Fragment>{content}</Fragment>;
+}
+
+export default ScreamLoading;

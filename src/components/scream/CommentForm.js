@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 function CommentForm({ screamId }) {
   const [comment, setComment] = useState("");
   const [error, setError] = useState("");
+  const [charCount, setCharCount] = useState(280);
   const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
@@ -47,9 +48,17 @@ function CommentForm({ screamId }) {
   };
   const handleChange = (e) => {
     setError("");
+    setCharCount(280 - e.target.value.length);
+    if (charCount <= 0) {
+      return;
+    }
     setComment(e.target.value);
   };
   const classes = useStyles();
+  const charHelper =
+    charCount > 0
+      ? `${charCount} character's left`
+      : "Character limit exceeded";
   return (
     <Grid item sm={12} style={{ textAlign: "center" }}>
       <form onSubmit={handleSubmit}>
@@ -62,9 +71,12 @@ function CommentForm({ screamId }) {
           className={classes.textField}
           value={comment}
           error={error}
-          helperText={error}
+          helperText={error || charHelper}
           onChange={handleChange}
           fullWidth
+          autoFocus
+          multiline
+          rows={4}
         />
         <Button
           type="submit"

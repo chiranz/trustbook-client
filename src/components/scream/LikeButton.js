@@ -11,7 +11,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { likeScream } from "../../redux/actions/dataActions";
 import MyButton from "../MyButton";
 
-export default function LikeButton({ screamId }) {
+export default function LikeButton({ screamId, setLikesCount }) {
   const dispatch = useDispatch();
   const { likes, authenticated } = useSelector((state) => state.user);
   dayjs.extend(relativeTime);
@@ -26,6 +26,13 @@ export default function LikeButton({ screamId }) {
   }, [likes, screamId]);
 
   const handleLike = () => {
+    if (liked) {
+      setLiked(false);
+      setLikesCount((count) => count - 1);
+    } else {
+      setLiked(true);
+      setLikesCount((count) => count + 1);
+    }
     dispatch(likeScream(screamId));
   };
 

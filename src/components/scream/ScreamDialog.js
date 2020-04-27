@@ -63,6 +63,9 @@ function ScreamDialog({ screamId, userHandle, openDialog }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [oldPath, setOldPath] = useState(null);
+  const [likesCount, setLikesCount] = useState(
+    scream ? scream.likeCount : null
+  );
 
   const classes = useStyles();
   const handleOpen = useCallback(() => {
@@ -133,8 +136,11 @@ function ScreamDialog({ screamId, userHandle, openDialog }) {
                 <hr className={classes.invisibleSeperator} />
                 <Typography variant="body1">{scream && scream.body}</Typography>
 
-                <LikeButton screamId={scream && scream.screamId} />
-                <span>{scream && scream.likeCount} likes</span>
+                <LikeButton
+                  screamId={scream && scream.screamId}
+                  setLikesCount={setLikesCount}
+                />
+                <span>{scream && likesCount} likes</span>
 
                 <MyButton title="comments">
                   <ChatIcon color="primary" />

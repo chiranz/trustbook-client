@@ -5,12 +5,12 @@ import rootReducer from "./reducer";
 
 const middlewares = [thunk];
 
-// const devTools =
-// window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const devTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 export const store = createStore(
   rootReducer,
-  compose(applyMiddleware(...middlewares))
+  compose(applyMiddleware(...middlewares), devTools)
 );
 
 export const persistor = persistStore(store);

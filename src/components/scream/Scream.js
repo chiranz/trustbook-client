@@ -17,6 +17,8 @@ import { useSelector } from "react-redux";
 import DeleteButton from "./DeleteButton";
 import ScreamDialog from "./ScreamDialog";
 import LikeButton from "./LikeButton";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const useStyles = makeStyles((theme) => ({
   ...theme.spreadThis,
@@ -26,7 +28,11 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20,
   },
   image: {
-    minWidth: 200,
+    minWidth: 100,
+    maxHeight: 100,
+    marginLeft: 25,
+    marginTop: 25,
+    borderRadius: "50%",
   },
   content: {
     padding: 25,
@@ -51,6 +57,10 @@ function Scream({
     credentials: { handle },
   } = useSelector((state) => state.user);
   dayjs.extend(relativeTime);
+  const [likesCount, setLikesCount] = useState(likeCount);
+  useEffect(() => {
+    setLikesCount(likeCount);
+  }, [likeCount]);
   const classes = useStyles();
   return (
     <Card className={classes.card}>
@@ -76,8 +86,8 @@ function Scream({
           {dayjs(createdAt).fromNow()}
         </Typography>
         <Typography variant="body1">{body}</Typography>
-        <LikeButton screamId={screamId} />
-        <span>{likeCount} Likes</span>
+        <LikeButton screamId={screamId} setLikesCount={setLikesCount} />
+        <span>{likesCount} Likes</span>
         <MyButton title="comments">
           <ChatIcon color="primary" />
         </MyButton>

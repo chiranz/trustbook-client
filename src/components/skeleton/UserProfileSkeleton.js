@@ -7,6 +7,7 @@ import LocationOn from "@material-ui/icons/LocationOn";
 import LinkIcon from "@material-ui/icons/Link";
 import CalendarToday from "@material-ui/icons/CalendarToday";
 import UserSkeleton from "./UserSkeleton";
+import CenteredLoading from "../CenteredLoading";
 // Local imports
 
 const useStyles = makeStyles((theme) => ({
@@ -31,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function UserProfileSkeleteon() {
+export function UserProfileSkeleteon() {
   const classes = useStyles();
   return (
     <Paper className={classes.paper}>
@@ -55,4 +56,21 @@ function UserProfileSkeleteon() {
   );
 }
 
-export default UserProfileSkeleteon;
+function UserProfileLoading() {
+  const classes = useStyles();
+  return (
+    <Paper
+      className={classes.paper}
+      style={{
+        minHeight: "400px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CenteredLoading />
+    </Paper>
+  );
+}
+
+export default UserProfileLoading;
