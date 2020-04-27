@@ -5,19 +5,12 @@ import rootReducer from "./reducer";
 
 const middlewares = [thunk];
 
-let devTools;
-if (
-  window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1"
-) {
-  devTools =
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION__();
-}
+// let devTools =
+//   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
 export const store = createStore(
   rootReducer,
-  compose(applyMiddleware(...middlewares), devTools)
+  compose(applyMiddleware(...middlewares))
 );
 
 export const persistor = persistStore(store);
